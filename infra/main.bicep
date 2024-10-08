@@ -52,7 +52,7 @@ param storageServiceImageContainerName string = 'images'
 
 // param resourceGroupName string = ''
 
-var resourceToken = toLower(uniqueString(subscription().id, name, location))
+//var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = { CreatedBy: 'Simon Liedtke' }
 
 // Organize resources in a resource group
@@ -66,7 +66,7 @@ module resources 'resources.bicep' = {
   name: 'all-resources'
   params: {
     name: name
-    resourceToken: resourceToken
+    //resourceToken: resourceToken
     tags: tags
     openai_api_version: openAIApiVersion
     // openAiLocation: openAILocation

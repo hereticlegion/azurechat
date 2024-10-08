@@ -33,14 +33,14 @@ resource azureopenai 'Microsoft.CognitiveServices/accounts@2023-05-01' existing 
 }
 
 @batchSize(1)
-resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = [for deployment in llmDeployments: {
+resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' existing = [for deployment in llmDeployments: {
   parent: azureopenai
-  name: deployment.name
-  properties: {
-    model: deployment.model
-    // raiPolicyName: contains(deployment, 'raiPolicyName') ? deployment.raiPolicyName : null
-  }
-  sku: deployment.sku
+  name: chatGptModelName
 }]
+
+// @batchSize(1)
+// resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' existing = [for deployment in llmDeployments:{
+//   name: chatGptModelName
+// }]
 
 output AZURE_OPEN_AI_KEY string = azureopenai.listKeys().key1
